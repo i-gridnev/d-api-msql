@@ -6,19 +6,18 @@ services:
     image: mysql:8.0
     restart: always
     volumes:
-      - ../db_data:/var/lib/mysql
+      - db_data_volume:/var/lib/mysql
     env_file:
-      - .env
+      - ./backend/.env
 
   app:
     build: 
-      context: .
       dockerfile: ./docker/Dockerfile
     command: bash -c "sleep 5 && gunicorn --bind 0.0.0.0:8000 --workers=2 config.wsgi:application"
     volumes:
       - static_volume:/app/static
     env_file:
-      - .env
+      - ./backend/.env
     depends_on:
       - db
 
@@ -34,3 +33,4 @@ services:
 
 volumes:
   static_volume:
+  db_data_volume:
