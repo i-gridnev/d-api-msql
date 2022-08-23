@@ -7,8 +7,6 @@ class Bike(models.Model):
     code = models.IntegerField(unique=True)
     price = models.DecimalField(max_digits=5, decimal_places=2)
     mileage = models.IntegerField(default=0)
-    tenants = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, through='Rent', related_name='bikes')
     is_rented = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
